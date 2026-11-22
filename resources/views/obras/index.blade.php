@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>ArtSpace - MVP</title>
-</head>
+<html lang="es">
+<head><meta charset="UTF-8"><title>ArtSpace - Galería</title></head>
 <body>
-    <h1>Bienvenido a ArtSpace</h1>
-    
-    <h3>Añadir nueva obra (CRUD Básico)</h3>
-    <form action="/guardar-obra" method="POST">
-        @csrf
-        <label>Título:</label><br>
-        <input type="text" name="titulo" required><br><br>
-
-        <label>Descripción:</label><br>
-        <textarea name="descripcion" required></textarea><br><br>
-
-        <label>Precio (€):</label><br>
-        <input type="number" step="0.01" name="precio" required><br><br>
-
-        <button type="submit">Guardar Obra</button>
-    </form>
-
+    <h1>ArtSpace - Galería de Arte</h1>
+    <nav>
+        <a href="{{ route('home') }}">Catálogo</a> |
+        <a href="{{ route('contacto') }}">Contacto</a> |
+        <a href="{{ route('login') }}">Acceso Artistas / Admin</a>
+    </nav>
     <hr>
 
-    <h3>Listado de Obras en la Base de Datos</h3>
-    <ul>
-        @foreach($obras as $obra)
-            <li>
-                <strong>{{ $obra->titulo }}</strong> - {{ $obra->precio }}€ <br>
-                <small>{{ $obra->descripcion }}</small>
-            </li>
-        @endforeach
-    </ul>
+    <form method="GET" action="{{ route('home') }}">
+        <input type="text" name="buscar" placeholder="Buscar por título..." value="{{ request('buscar') }}">
+        <select name="orden">
+            <option value="recientes" {{ request('orden') == 'recientes' ? 'selected' : '' }}>Más recientes</option>
+            <option value="precio_asc" {{ request('orden') == 'precio_asc' ? 'selected' : '' }}>Precio: menor a mayor</option>
+            <option value="precio_desc" {{ request('orden') == 'precio_desc' ? 'selected' : '' }}>Precio: mayor a menor</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+    <hr>
+
+    @foreach($obras as $obra)
+        <article>
+            <h3><a href="{{ route('obras.show', $obra->id) }}">{{ $obra->titulo }}</a></h3>
+            @if($obra->imagen)
+                <img src="{{ asset('storage/' . $obra->imagen) }}" alt="{{ $obra->titulo }}" width="200"><br>
+            @endif
+            <p>{{ $obra->tecnica }} — <strong>{{ $obra->precio }} €</strong></p>
+            <p><small>Artista: {{ $obra->user->name ?? 'Desconocido' }}</small></p>
+        </article>
+        <hr>
+    @endforeach
+
+    {{ $obras->links() }}
 </body>
 </html>
