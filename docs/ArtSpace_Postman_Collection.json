@@ -1,0 +1,36 @@
+{
+  "info": {
+    "name": "ArtSpace API REST",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar obras del catálogo",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:8000/api/obras"
+      }
+    },
+    {
+      "name": "Detalle de obra por ID",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:8000/api/obras/1"
+      }
+    },
+    {
+      "name": "Obra inexistente (Error 404 controlado)",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:8000/api/obras/999"
+      }
+    },
+    {
+      "name": "Inspiración externa (Art Institute of Chicago)",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:8000/api/inspiracion"
+      }
+    }
+  ]
+}

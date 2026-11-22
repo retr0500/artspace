@@ -34,5 +34,18 @@
     @endforeach
 
     {{ $obras->links() }}
+
+    <section>
+        <h2>Inspiración Internacional (Art Institute of Chicago)</h2>
+        @foreach($inspiracion as $ext)
+            <article>
+                <h4>{{ $ext['titulo'] }} ({{ $ext['fecha'] }})</h4>
+                @if($ext['imagen_url'])
+                    <img src="{{ $ext['imagen_url'] }}" alt="{{ $ext['titulo'] }}" width="180"><br>
+                @endif
+                <p><small>{{ $ext['artista'] }} — {{ $ext['tecnica'] }}</small></p>
+            </article>
+        @endforeach
+    </section>
 </body>
 </html>

@@ -5,6 +5,7 @@ use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\ArtworkAdminController;
+use App\Http\Controllers\Api\ArtworkApiController;
 
 // Rutas públicas
 Route::get('/', [ArtworkController::class, 'index'])->name('home');
@@ -26,4 +27,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/obras/{artwork}', [ArtworkAdminController::class, 'update'])->name('obras.update');
     Route::delete('/obras/{artwork}', [ArtworkAdminController::class, 'destroy'])->name('obras.destroy');
     Route::get('/mensajes', [ArtworkAdminController::class, 'mensajes'])->name('mensajes');
+});
+
+// Endpoints API REST (JSON)
+Route::prefix('api')->group(function () {
+    Route::get('/obras', [ArtworkApiController::class, 'index'])->name('api.obras.index');
+    Route::get('/obras/{id}', [ArtworkApiController::class, 'show'])->name('api.obras.show');
+    Route::get('/inspiracion', [ArtworkApiController::class, 'inspiracion'])->name('api.inspiracion');
 });

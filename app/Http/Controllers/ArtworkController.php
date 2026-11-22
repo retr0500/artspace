@@ -3,33 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artwork;
+use App\Repositories\ArtworkRepository;
+use App\Services\MuseumApiService;
 use Illuminate\Http\Request;
 
 class ArtworkController extends Controller
 {
-    public function index(Request $request)
+    public function __construct(
+        private ArtworkRepository $artworkRepository
+    ) {}
+
+    public function index(Request $request, MuseumApiService $museumService)
     {
-        $query = Artwork::with('user');
+        $obras = $this->artworkRepository->getFilteredPaginated(
+            $request->only(['buscar', 'tecnica', 'orden']),
+            6
+        );
+        $inspiracion = $museumService->getInspiracionObras(3);
 
-        if ($request->filled('buscar')) {
-            $query->where('titulo', 'like', '%' . $request->buscar . '%');
-        }
-
-        if ($request->filled('tecnica')) {
-            $query->where('tecnica', $request->tecnica);
-        }
-
-        $orden = $request->get('orden', 'recientes');
-        if ($orden === 'precio_asc') {
-            $query->orderBy('precio', 'asc');
-        } elseif ($orden === 'precio_desc') {
-            $query->orderBy('precio', 'desc');
-        } else {
-            $query->latest();
-        }
-
-        $obras = $query->paginate(6)->withQueryString();
-        return view('obras.index', compact('obras'));
+        return view('obras.index', compact('obras', 'inspiracion'));
     }
 
     public function show($id)
