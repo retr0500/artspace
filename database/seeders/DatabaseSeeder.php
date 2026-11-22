@@ -3,23 +3,38 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Artwork;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $admin = User::create([
+            'name' => 'Gabriel Pazos (Admin)',
+            'email' => 'admin@artspace.com',
+            'password' => Hash::make('admin1234'),
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        Artwork::create([
+            'user_id' => $admin->id,
+            'titulo' => 'Horizonte Atlántico',
+            'descripcion' => 'Obra inspirada en la costa gallega con texturas densas.',
+            'tecnica' => 'Óleo sobre lienzo',
+            'dimensiones' => '100x80 cm',
+            'precio' => 480.00,
+            'destacado' => true,
+        ]);
+
+        Artwork::create([
+            'user_id' => $admin->id,
+            'titulo' => 'Geometría Urbana',
+            'descripcion' => 'Composición abstracta de líneas y contraste cromático.',
+            'tecnica' => 'Acrílico',
+            'dimensiones' => '90x90 cm',
+            'precio' => 350.00,
+            'destacado' => false,
         ]);
     }
 }
