@@ -1,4 +1,4 @@
-# ArtSpace - Proyecto DAW (Entrega Parcial 1)
+# ArtSpace - Proyecto DAW
 
 Este es el repositorio de mi proyecto de fin de ciclo de Desarrollo de Aplicaciones Web (DAW) para el IES Fernando Wirtz Suárez. Consiste en una plataforma web para la gestión y exposición de obras de arte. 
 
