@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\ArtworkRepository;
-use App\Services\MuseumApiService;
+use App\Services\CurrencyApiService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ArtworkApiController extends Controller
 {
@@ -18,7 +17,6 @@ class ArtworkApiController extends Controller
     public function index(Request $request): JsonResponse
     {
         $obras = $this->artworkRepository->getAllForApi($request->query('buscar'));
-        Log::info('Consulta API GET /api/obras', ['total' => $obras->count()]);
 
         return response()->json([
             'status' => 'success',
@@ -32,8 +30,6 @@ class ArtworkApiController extends Controller
         $obra = $this->artworkRepository->findWithAuthor($id);
 
         if (!$obra) {
-            Log::warning('Obra no encontrada en API', ['id' => $id]);
-
             return response()->json([
                 'status' => 'error',
                 'message' => 'La obra solicitada no existe.',
@@ -46,14 +42,13 @@ class ArtworkApiController extends Controller
         ], 200);
     }
 
-    public function inspiracion(MuseumApiService $museumService): JsonResponse
+    public function divisas(Request $request, CurrencyApiService $currencyService): JsonResponse
     {
-        $obrasExternas = $museumService->getInspiracionObras(3);
-
+        $eur = (float) $request->query('eur', 100);
         return response()->json([
             'status' => 'success',
-            'source' => 'Art Institute of Chicago API',
-            'data' => $obrasExternas,
+            'source' => 'Frankfurter ECB Exchange API',
+            'data' => $currencyService->convertFromEur($eur),
         ], 200);
     }
 }

@@ -32,6 +32,11 @@ class ArtworkRepository
         return $query->paginate($perPage)->withQueryString();
     }
 
+    public function getDistinctTechniques()
+    {
+        return Artwork::select('tecnica')->distinct()->pluck('tecnica');
+    }
+
     public function getAllForApi(?string $buscar = null): Collection
     {
         $query = Artwork::with('user:id,name');

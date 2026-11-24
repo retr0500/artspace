@@ -1,0 +1,9 @@
+{
+  "name": "ArtSpace - Plataforma de Arte Independiente",
+  "short_name": "ArtSpace",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e293b",
+  "description": "Catálogo y gestión de obras de artistas independientes"
+}

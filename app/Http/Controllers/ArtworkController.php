@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artwork;
+use App\Models\Category;
 use App\Repositories\ArtworkRepository;
-use App\Services\MuseumApiService;
+use App\Services\CurrencyApiService;
 use Illuminate\Http\Request;
 
 class ArtworkController extends Controller
@@ -13,20 +14,27 @@ class ArtworkController extends Controller
         private ArtworkRepository $artworkRepository
     ) {}
 
-    public function index(Request $request, MuseumApiService $museumService)
+    public function index(Request $request)
     {
         $obras = $this->artworkRepository->getFilteredPaginated(
             $request->only(['buscar', 'tecnica', 'orden']),
             6
         );
-        $inspiracion = $museumService->getInspiracionObras(3);
+        $categorias = Category::orderBy('id')->get();
 
-        return view('obras.index', compact('obras', 'inspiracion'));
+        return view('obras.index', compact('obras', 'categorias'));
     }
 
-    public function show($id)
+    public function show($id, CurrencyApiService $currencyService)
     {
         $obra = Artwork::with('user')->findOrFail($id);
-        return view('obras.show', compact('obra'));
+        $divisas = $currencyService->convertFromEur((float) $obra->precio);
+
+        return view('obras.show', compact('obra', 'divisas'));
+    }
+
+    public function favoritas()
+    {
+        return view('obras.favoritas');
     }
 }
