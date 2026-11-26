@@ -1,0 +1,40 @@
+services:
+  app:
+    build: .
+    container_name: artspace_app
+    ports:
+      - "8000:80"
+    environment:
+      APP_NAME: ArtSpace
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://127.0.0.1:8000
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: artspace_db
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+    depends_on:
+      - db
+    networks:
+      - artspace_net
+
+  db:
+    image: mysql:8.0
+    container_name: artspace_db
+    environment:
+      MYSQL_DATABASE: artspace_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - artspace_net
+
+volumes:
+  db_data:
+
+networks:
+  artspace_net:

@@ -1,21 +1,31 @@
-# ArtSpace - Proyecto DAW
+# ArtSpace
 
-Este es el repositorio de mi proyecto de fin de ciclo de Desarrollo de Aplicaciones Web (DAW) para el IES Fernando Wirtz Suárez. Consiste en una plataforma web para la gestión y exposición de obras de arte. 
+Proyecto de fin de ciclo de Desarrollo de Aplicaciones Web (DAW) — I.E.S. Fernando Wirtz Suárez (A Coruña).  
+Autor: **Gabriel Pazos Sieiro**
 
-Actualmente el proyecto se encuentra en su fase inicial (MVP), habiendo implementado la estructura base con el framework Laravel y un CRUD básico.
+ArtSpace es una aplicación web pensada para artistas y fotógrafos independientes que quieren mostrar su catálogo de obras y recibir consultas directas de clientes sin pagar comisiones de intermediación.
 
-## Dependencias necesarias
-Para poder probar el proyecto en local, es necesario contar con:
-- **XAMPP / Laragon** (o similar) para disponer de **PHP** (versión 8.2 o superior) y servidor **MySQL**.
-- **Composer** (para la instalación de dependencias de PHP).
-- **Git** (para clonar el repositorio).
+## Características principales
 
-## Cómo desplegar y probar el proyecto
+- Catálogo público con búsqueda por título, filtro por categoría/técnica, ordenación y paginación.
+- Ficha de obra con soporte para imágenes (con visor ampliado) y vídeos, además de conversión orientativa de precios (EUR a USD y GBP) mediante la API pública de Frankfurter (Banco Central Europeo).
+- Sistema de obras favoritas guardado en el navegador (`localStorage`) y cargado de forma asíncrona con `fetch`.
+- Autenticación con roles (`admin` y `user`), registro de clientes y rutas protegidas.
+- Panel de administración y **Modo Edición** visual para cambiar colores, textos, logo, categorías y activar opciones de protección anti-IA sin tocar código.
+- Mensajería con control anti-spam (solo usuarios autenticados), respuestas desde el panel y bloqueo de usuarios.
+- Soporte PWA (`manifest.json` y Service Worker) y pruebas automatizadas con PHPUnit.
 
-A continuación se detallan los pasos y comandos para ejecutar la aplicación desde cero:
+## Requisitos
 
-**1. Clonar el repositorio**
-Abre la terminal de comandos y ejecuta:
+- PHP 8.2 o superior (recomendado 8.3)
+- Composer
+- MySQL 8.0 (XAMPP, Laragon o Docker)
+- Git
+- Docker y Docker Compose (para despliegue en contenedores)
 
-git clone [https://github.com/TU-USUARIO-DE-GITHUB/artspace.git](https://github.com/TU-USUARIO-DE-GITHUB/artspace.git)
+## Instalación y ejecución en local (XAMPP)
+
+1. Clonar el repositorio:
+```bash
+git clone [https://github.com/retr0500/artspace.git](https://github.com/retr0500/artspace.git)
 cd artspace

@@ -26,10 +26,10 @@
       }
     },
     {
-      "name": "Inspiración externa (Art Institute of Chicago)",
+      "name": "Conversión de divisas EUR a USD/GBP (API BCE)",
       "request": {
         "method": "GET",
-        "url": "http://127.0.0.1:8000/api/inspiracion"
+        "url": "http://127.0.0.1:8000/api/divisas?eur=480"
       }
     }
   ]
