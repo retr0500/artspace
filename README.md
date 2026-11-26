@@ -53,7 +53,7 @@ php artisan storage:link
 ```bash
 php artisan serve
 ```
-La aplicación estará disponible en `[http://127.0.0.1:8000](http://127.0.0.1:8000)`.
+La aplicación estará disponible en `http://127.0.0.1:8000`.
 
 ## Despliegue con Docker Compose
 
@@ -63,7 +63,7 @@ docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate:fresh --seed
 docker compose exec app php artisan storage:link
 ```
-Una vez levantados los contenedores, accede a `[http://127.0.0.1:8000](http://127.0.0.1:8000)`.
+Una vez levantados los contenedores, accede a `http://127.0.0.1:8000`.
 
 ## Cuentas de prueba (Seeder)
 
